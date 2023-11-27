@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterType, TaskType} from "./App";
+import {AddItemForm} from "./AddItemForm";
 
 type TodolistPropsType = {
     title: string
@@ -18,7 +19,7 @@ export const Todolist = (props: TodolistPropsType) => {
     let [error, setError] = useState<null | string>(null)
 
 
-    const addTask = () => {
+    const addTask = (title: string) => {
 
         if (title.trim() !== '') {
             props.addTask(title, props.id)
@@ -32,12 +33,12 @@ export const Todolist = (props: TodolistPropsType) => {
         setTitle(event.currentTarget.value)
     }
     const onClickHandler = () => {
-        addTask()
+        addTask(title)
     }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (event.key === "Enter") {
-            addTask()
+            addTask(title)
         }
     }
     const onAllClickHandler = () => {
@@ -56,15 +57,7 @@ export const Todolist = (props: TodolistPropsType) => {
     return (
         <div>
             <h3>{props.title}<span><button onClick={removeTodolistHandler}>X</button></span></h3>
-            <div>
-                <input value={title}
-                       onChange={onChangeHandler}
-                       onKeyPress={onKeyPressHandler}
-                       className={error ? 'error' : ''}
-                />
-                <button onClick={onClickHandler}>+</button>
-                {error && <div className='error-message'>{error}</div>}
-            </div>
+              <AddItemForm addItem={addTask}/>
             <ul>
                 {props.tasks.map((task) => {
 
