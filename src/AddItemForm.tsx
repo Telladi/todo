@@ -1,8 +1,9 @@
-import {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, TextField} from "@mui/material";
 
 
 export type AddItemFormPropsType = {
-    addItem: (title: string)=> void
+    addItem: (title: string) => void
 }
 export const AddItemForm = (props: AddItemFormPropsType) => {
     const [title, setTitle] = useState('')
@@ -22,22 +23,33 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
     }
-    const onClickHandler = () => {
-        addItem()
-    }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (event.key === "Enter") {
             addItem()
-        }}
+        }
+    }
     return (
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? 'error' : ''}
+            {/*<input value={title}*/}
+            {/*       onChange={onChangeHandler}*/}
+            {/*       onKeyPress={onKeyPressHandler}*/}
+            {/*       className={error ? 'error' : ''}*/}
+            {/*/>*/}
+            {/*<button onClick={addItem}>+</button>*/}
+            <TextField
+            variant='outlined'
+            value={title}
+            onKeyPress={onKeyPressHandler}
+            onChange={onChangeHandler}
+            className={error ? 'error' : ''}
             />
-            <button onClick={addItem}>+</button>
+            <Button style={{
+                maxWidth: '30px',
+                maxHeight: '30px',
+                minWidth: '30px',
+                minHeight: '30px'
+            }} variant="contained" color="primary" onClick={addItem}></Button>
             {error && <div className="error-message">{error}</div>}
         </div>
     )
