@@ -5,7 +5,7 @@ import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {addTaskAC, removeTaskAC, tasksReducer} from "./reducers/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./reducers/tasksReducer";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -79,7 +79,7 @@ function App() {
         // setTasks({...tasks})
         dispatchTasks(removeTaskAC(id))
     }
-    const changeTaskStatus = (id: string, isDone: boolean, todolistId: string) => {
+    const changeTaskStatus = (id: string, isDone: boolean) => {
         // let todolistTasks = tasks[todolistId]
         //
         // let task = todolistTasks.find(task => task.id === id)
@@ -87,7 +87,7 @@ function App() {
         //     task.isDone = isDone
         //     setTasks({...tasks})
         // }
-        dispatchTasks(changeTaskStatus(id, isDone, todolistId))
+        dispatchTasks(changeTaskStatusAC(id, isDone))
     }
 
     const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
