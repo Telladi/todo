@@ -5,7 +5,7 @@ import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./reducers/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
