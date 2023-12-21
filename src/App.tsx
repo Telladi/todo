@@ -6,6 +6,7 @@ import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
+import {todolistsReducer} from "./state/todolists-reducer";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -28,7 +29,7 @@ function App() {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    let [todolists, setTodolists] = useState<Array<TodolistType>>([
+    let [todolists, dispatchTodolists] = useReducer(todolistsReducer, [
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
@@ -101,10 +102,11 @@ function App() {
     }
 
     const removeTodolist = (id: string) => {
-        setTodolists(todolists.filter(todolist => todolist.id != id))
-        delete tasks[id]
-
-        setTasks({...tasks})
+        // setTodolists(todolists.filter(todolist => todolist.id != id))
+        // delete tasks[id]
+        //
+        // setTasks({...tasks})
+        dispatchTodolists(removeTodolist(id))
     }
     const addTodolist = (title: string) => {
         let newTodolistId = v1()
