@@ -2,7 +2,7 @@ import {TaskType} from "../App";
 import {v1} from "uuid";
 
 
-export const tasksReducer = (state: TaskType[], action: ReducerType) : TaskType[] => {
+export const tasksReducer = (state: TaskType[], action: TaskReducerType) : TaskType[] => {
     switch (action.type) {
         case 'REMOVE-TASK' : {
             let stateCopy = state
@@ -25,7 +25,7 @@ export const tasksReducer = (state: TaskType[], action: ReducerType) : TaskType[
             return state
     }
 }
-export type ReducerType = RemoveTaskACType | AddTaskACType | ChangeTaskStatusACType
+export type TaskReducerType = RemoveTaskACType | AddTaskACType | ChangeTaskStatusACType
 export type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 export type AddTaskACType = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>
