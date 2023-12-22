@@ -6,7 +6,13 @@ import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
-import {addTodolistAC, removeTodolistAC, todolistsReducer} from "./state/todolists-reducer";
+import {
+    addTodolistAC,
+    changeFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC,
+    todolistsReducer
+} from "./state/todolists-reducer";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -66,11 +72,12 @@ function App() {
 
 
     const changeFilter = (value: FilterType, todolistId: string) => {
-        let todolist = todolists.find(tl => tl.id === todolistId)
-        if (todolist) {
-            todolist.filter = value
-            setTodolists([...todolists])
-        }
+        // let todolist = todolists.find(tl => tl.id === todolistId)
+        // if (todolist) {
+        //     todolist.filter = value
+        //     setTodolists([...todolists])
+        // }
+        dispatchTodolists(changeFilterAC(value, todolistId))
     }
     const removeTask = (id: string, todolistId: string) => {
         // let todolistTasks = tasks[todolistId]
@@ -92,13 +99,13 @@ function App() {
     }
 
     const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
-        let todolistTasks = tasks[todolistId]
-
-        let task = todolistTasks.find(task => task.id === id)
-        if (task) {
-            task.title = newTitle
-            setTasks({...tasks})
-        }
+        // let todolistTasks = tasks[todolistId]
+        //
+        // let task = todolistTasks.find(task => task.id === id)
+        // if (task) {
+        //     task.title = newTitle
+        //     setTasks({...tasks})
+        // }
     }
 
     const removeTodolist = (id: string) => {
@@ -116,12 +123,8 @@ function App() {
         dispatchTodolists(addTodolistAC(title))
     }
 
-    const changeTodolistTitle = (id: string, newTitle: string) => {
-        const todolist = todolists.find(tl => tl.id === id)
-        if (todolist) {
-            todolist.title = newTitle
-            setTodolists([...todolists])
-        }
+    const changeTodolistTitle = (id: string, title: string) => {
+        dispatchTodolists(changeTodolistTitleAC(id, title))
 
     }
 

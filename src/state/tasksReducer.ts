@@ -56,3 +56,13 @@ export const changeTaskStatusAC = (id: string, isDone: boolean) => {
         }
     } as const
 }
+
+export const changeTaskTitleAC = (id: string, isDone: boolean) => {
+    return {
+        type: "CHANGE-TASK-STATUS",
+        payload: {
+            isDone: isDone,
+            id: id
+        }
+    } as const
+}

@@ -2,8 +2,10 @@ import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterType, TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
-import {Button, Checkbox, IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
+import {CheckBox} from "./components/CheckBox";
+import {changeTaskStatusAC} from "./state/tasksReducer";
 
 type TodolistPropsType = {
     title: string
@@ -49,7 +51,9 @@ export const Todolist = (props: TodolistPropsType) => {
     const changeTodolistTitle = (newTitle: string) => {
         props.changeTodolistTitle(props.id, newTitle)
     }
-
+    const callBackHandler = (tID: string, value: boolean) => {
+        props.changeTaskStatus(tID,value, props.id)
+    }
     return (
         <div>
             <h3>
@@ -64,11 +68,6 @@ export const Todolist = (props: TodolistPropsType) => {
                     const onClickHandler = () => {
                         props.removeTask(task.id, props.id)
                     }
-
-                    const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        let newIsDoneValue = e.currentTarget.checked
-                        props.changeTaskStatus(task.id, newIsDoneValue, props.id)
-                    }
                     const onChangeTitleHandler = (newTitle: string) => {
                         props.changeTaskTitle(task.id, newTitle, props.id)
                     }
@@ -77,7 +76,7 @@ export const Todolist = (props: TodolistPropsType) => {
 
                         <li key={task.id} className={task.isDone ? "is-done" : ""}>
                             {/*<input type="checkbox" checked={task.isDone} onChange={onChangeStatusHandler}/>*/}
-                            <Checkbox checked={task.isDone} onChange={onChangeStatusHandler} color="primary"/>
+                            <CheckBox checked={task.isDone} callBack={(value) =>{callBackHandler(task.id, value)}}/>
                             <EditableSpan title={task.title} onChange={onChangeTitleHandler}/>
                             {/*<button onClick={onClickHandler}>✖️</button>*/}
                             <IconButton onClick={onClickHandler}><Delete/></IconButton>
