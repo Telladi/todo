@@ -5,7 +5,7 @@ import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {CheckBox} from "./components/CheckBox";
-import {changeTaskStatusAC} from "./state/tasksReducer";
+import {changeTaskStatusAC} from "./state/tasks-reducer";
 
 type TodolistPropsType = {
     title: string

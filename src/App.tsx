@@ -5,7 +5,7 @@ import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
 import {
     addTodolistAC,
     changeFilterAC,
@@ -62,12 +62,12 @@ function App() {
 
          )
 
-    const addTask = (title: string, todolistId: string) => {
+    const addTask = (title: string, todolistID: string) => {
         // let task = {id: v1(), title: title, isDone: false}
         // let todolistTasks = tasks[todolistId]
         // tasks[todolistId] = [task, ...todolistTasks]
         // setTasks({...tasks})
-        dispatchTasks(addTaskAC(title))
+        dispatchTasks(addTaskAC(title, todolistID))
     }
 
 
@@ -85,7 +85,7 @@ function App() {
         // tasks[todolistId] = todolistTasks.filter(task => task.id != id)
         //
         // setTasks({...tasks})
-        dispatchTasks(removeTaskAC(id))
+        dispatchTasks(removeTaskAC(id, todolistId))
     }
     const changeTaskStatus = (id: string, isDone: boolean) => {
         // let todolistTasks = tasks[todolistId]
