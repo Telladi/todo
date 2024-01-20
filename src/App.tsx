@@ -5,7 +5,7 @@ import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
 import {
     addTodolistAC,
     changeFilterAC,
@@ -53,7 +53,6 @@ function App() {
         ]
     })*/
     let [tasks, dispatchTasks] = useReducer(tasksReducer,
-
         [ {id: v1(), title: 'HTML&CSS', isDone: true},
                 {id: v1(), title: 'JS', isDone: true},
                 {id: v1(), title: 'ReactJS', isDone: false},
@@ -62,12 +61,12 @@ function App() {
 
          )
 
-    const addTask = (title: string, todolistID: string) => {
+    const addTask = (title: string, todolistId: string) => {
         // let task = {id: v1(), title: title, isDone: false}
         // let todolistTasks = tasks[todolistId]
         // tasks[todolistId] = [task, ...todolistTasks]
         // setTasks({...tasks})
-        dispatchTasks(addTaskAC(title, todolistID))
+        dispatchTasks(addTaskAC(title, todolistId))
     }
 
 
@@ -79,13 +78,14 @@ function App() {
         // }
         dispatchTodolists(changeFilterAC(value, todolistId))
     }
-    const removeTask = (id: string, todolistId: string) => {
+    const removeTask = (taskId: string, todolistId: string) => {
         // let todolistTasks = tasks[todolistId]
         //
         // tasks[todolistId] = todolistTasks.filter(task => task.id != id)
         //
         // setTasks({...tasks})
-        dispatchTasks(removeTaskAC(id, todolistId))
+        dispatchTasks(removeTaskAC(taskId, todolistId))
+        dispatchTodolists(removeTodolistAC(todolistId))
     }
     const changeTaskStatus = (id: string, isDone: boolean) => {
         // let todolistTasks = tasks[todolistId]
@@ -106,6 +106,7 @@ function App() {
         //     task.title = newTitle
         //     setTasks({...tasks})
         // }
+        dispatchTasks(changeTaskTitleAC(id,newTitle, todolistId))
     }
 
     const removeTodolist = (id: string) => {
