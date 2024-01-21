@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
-import {FilterType, TaskType} from "./App";
+import {FilterType, TaskType} from "./AppWithReducer";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@mui/material";
